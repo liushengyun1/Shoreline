@@ -1,58 +1,17 @@
-# iCurb 
 
-iCurb is the previous work of our team, which aims to solve the problem of road curb detection in aerial images by iterative graph generation. Due to the similarity of road curbs and road boundaries, we provide both the training and inference code in this benchmark. Since the quality of some road-curb annotations in 
-[nyc-planimetrics database](https://github.com/CityOfNewYork/nyc-planimetrics) is not as good as expected, we only show the process of how iCurb solves the problem of road boundary detection.
-
-Different from past works, iCurb analyzes the detection problem from the perspective of imitation learning, and proposes a new pipeline as well as a DAgger-based training strategy. The comparison results demonstrate the superiority of our work.
-
-## Related links
-[iCurb paper](https://arxiv.org/abs/2103.17118) (RAL2021).
-
-[iCurb project page](https://tonyxuqaq.github.io/iCurb/). A supplementary document is provided in the link.
-
-If you are interested in this work, please cite our paper
-```
-@article{xu2021icurb,
-  title={iCurb: Imitation Learning-Based Detection of Road Curbs Using Aerial Images for Autonomous Driving},
-  author={Xu, Zhenhua and Sun, Yuxiang and Liu, Ming},
-  journal={IEEE Robotics and Automation Letters},
-  volume={6},
-  number={2},
-  pages={1097--1104},
-  year={2021},
-  publisher={IEEE}
-}
-```
-
-## Experiment environment
-Run 
-```
-./build_container.bash
-``` 
-to create the Docker container.
-
-## Try with saved checkpoint
-Run 
-```
-./run_eval.bash
-```
-
-Inference would be done with saved checkpoints. 
-
-Binary maps of the generated graph are saved in ```./records/test/skeleton```; generated vertices are saved in ```./records/test/vertices_record```. After inference, a script is triggered to calculate the evaluation results of the inference.
 
 ## Train your own model
 
 ### Train FPN
 For better training efficiency and convergence performance, we train the FPN and the agent network separately. A saved checkpoint of FPN is provided, which could be directly used for later tasks. FPN is trained with the pretrain set.
-Run 
+运行
 ```
 ./run_train_seg.bash
 ```
 
 
 ### Train the agent network
-Run 
+运行
 ```
 ./run_train.bash
 ```
@@ -74,28 +33,21 @@ Then run
 The port number of above two bashes is **5008**. 
 
 ### Inference
-Run 
+运行
 ```
 ./run_eval.bash
 ```
 
-Inference would be done with saved checkpoints. 
+推理可以通过保存的检查点来完成。
 
-Binary maps of the generated graph are saved in ```./records/test/skeleton```; generated vertices are saved in ```./records/test/vertices_record```. After inference, a script is triggered to calculate the evaluation results of the inference.
+生成的图的二值图保存在```中。生成的顶点保存在```./records/test/vertices_record``中。推理后，触发一个脚本来计算推理的评估结果。
 
 ## Visualization in aerial images
-If you want to project the generated road-boundary graph onto the aerial images for better visualization, run
+如果您想将生成的道路边界图投影到航空图像上以获得更好的可视化，请运行
 ```
 python utils/visualize.py
 ```
 Generated visualizations are saved in ```./records/test/final_vis```.
 
-
-Some examples are shown below. Cyan lines are the ground truth. In the predicted road-boundary graph, yellow nodes are vertices and orange lines are edges.
-
-
-<img src=./img/gt_000167_41.png width="25%" height="25%"><img src=./img/gt_000197_22.png width="25%" height="25%"><img src=./img/gt_000160_01.png width="25%" height="25%"><img src=./img/gt_000217_43.png width="25%" height="25%">
-
-<img src=./img/000167_41.png width="25%" height="25%"><img src=./img/000197_22.png width="25%" height="25%"><img src=./img/000160_01.png width="25%" height="25%"><img src=./img/000217_43.png width="25%" height="25%">
 
 
